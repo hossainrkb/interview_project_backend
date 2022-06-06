@@ -8,42 +8,45 @@ use Laravel\Passport\Client;
 use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use League\OAuth2\Server\Exception\OAuthServerException;
 
-class AuthenticationTest extends TestCase
+class UserRegistrationTest extends TestCase
 {
     // use RefreshDatabase;
 
-    public function test_users_can_authenticate_using_oAuth()
+    public function test_users_registration()
     {
         $oauth_client_id = 2;
         $oauth_client = Client::findOrfail($oauth_client_id);
 
         $body = [
-            'username' => 'admin@gmail.com',
-            'password' => '123456789',
+            'name' => 'admin',
+            'email' => rand(100000,50000000)."@gmail.com",
+            'password' => 'password',
             'client_id' => $oauth_client_id,
             'client_secret' => $oauth_client->secret,
             'grant_type' => 'password',
             'scope' => '*'
         ];
-        $this->json('POST', '/oauth/token', $body, ['Accept' => 'application/json'])
+        $this->json('POST', '/api/register', $body, ['Accept' => 'application/json'])
             ->assertStatus(200)
-            ->assertJsonStructure(['token_type', 'expires_in', 'access_token', 'refresh_token']);
+            ->assertJson(['status' => 'ok']);
     }
-    public function test_user_unauthenticated()
+    public function test_duplicate_users_registration()
     {
         $oauth_client_id = 2;
         $oauth_client = Client::findOrfail($oauth_client_id);
+
         $body = [
-            'username' => 'admin@gmail.com',
-            'password' => '123456789s',
+            'name' => 'admin',
+            'email' => 'admin@gmail.com',
+            'password' => 'password',
             'client_id' => $oauth_client_id,
             'client_secret' => $oauth_client->secret,
             'grant_type' => 'password',
             'scope' => '*'
         ];
-        $response =   $this->json('POST', '/oauth/token', $body, ['Accept' => 'application/json']);
-        $response->assertStatus(400);
+        $this->json('POST', '/api/register', $body, ['Accept' => 'application/json'])
+            ->assertStatus(200)
+            ->assertJson(['status' => 'error', 'message' => ['email' => ['The email has already been taken.']]]);
     }
 }
