@@ -18,8 +18,11 @@ class CreateOffersTable extends Migration
             $table->bigInteger('p_id')->nullable();
             $table->string('name')->nullable();
             $table->string('percentage')->nullable();
+            $table->string('image_type')->nullable();
+            $table->string('image_path')->nullable();
             $table->string('image_stored_name')->nullable();
             $table->string('image_original_name')->nullable();
+            $table->string('image_size')->nullable()->comment('in MB');
             $table->timestamps();
         });
     }
