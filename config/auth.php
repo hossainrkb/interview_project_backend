@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'tech_admin',
+        'passwords' => 'users',
     ],
 
     /*
@@ -38,7 +38,7 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'tech_admin',
+            'provider' => 'users',
         ],
     ],
 
@@ -60,15 +60,10 @@ return [
     */
 
     'providers' => [
-        'tech_admin' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\TechAdmin::class,
+        'users' => [
+            'driver' => 'database',
+            'table' => 'users',
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*
@@ -87,8 +82,8 @@ return [
     */
 
     'passwords' => [
-        'tech_admin' => [
-            'provider' => 'tech_admin',
+        'users' => [
+            'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

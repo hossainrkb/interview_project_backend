@@ -47,8 +47,7 @@ class LoginRequest extends FormRequest
         $email  = request()->email;
         $password  = request()->password;
         if (
-            Auth::attempt(['a_email' => $email, 'password' => $password, 'a_status' => 1]) ||
-            Auth::attempt(['a_username' => $email, 'password' => $password, 'a_status' => 1])
+            Auth::attempt(['email' => $email, 'password' => $password,'type'=>'admin'])
         ) {
             RateLimiter::clear($this->throttleKey());
         }

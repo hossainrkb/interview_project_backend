@@ -1,53 +1,54 @@
-<x-layouts.guest>
-    <x-elements.sweetalert/>
-    <x-slot name="body">
-        <div class="row">
-            <div class="col-md-5 m-auto">
-                <div class="card card-info" style="height: 97.5vh;">
-                    <div class="card-header text-center text-white">
-                        <img class="img img-thumbnail img-rounded"
-                            src="{{ asset(config('settings.institute_logo_path')) }}" alt="Logo" width="100" />
-                        <h4><b>{{ config('settings.institute_name') }}</b></h4>
-                        <hr class="bg-white">
-                        <h5 class="text-center"><b>{{ __('Login') }}</b></h5>
-                    </div>
-                    <div class="card-body">
-                        <form action="{{ route('login') }}" method="post">
-                            @csrf
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><b><i class="fa fa-user"></i> &nbsp;
-                                            {{ __('USERNAME') }}</b></span>
-                                </div>
-                                <input name="email" placeholder="Enter Username or Email Address" id="input-username"
-                                    class="form-control" type="text" autofocus="off" required />
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><b><i class="fa fa-lock"></i> &nbsp;
-                                            {{ __('PASSWORD') }}</b></span>
-                                </div>
-                                <input name="password" minlength="8" placeholder="Enter Password" id="input-password"
-                                    class="form-control" type="password" required />
-                            </div>
-                            <div class="text-right mb-3">
-                                <button type="submit" name="login" class="btn btn-info btn-block"><i
-                                        class="fa fa-key">
-                                        <b>{{ __('LOGIN') }}</b></i></button>
-                            </div>
-                        </form>
-                    </div>
-                    <!-- /.card-body -->
-                    <div class="card-footer bg-info">
-                        <div class="text-center">
-                            <small><b>Copyright {{ date('Y') }} &copy; {!! config('settings.copyright') !!}
-                                    <br />@Support by : {!! config('settings.support_by') !!} , @Developed by:
-                                    {!! config('settings.develop_by') !!}</b></small>
-                        </div>
+<!DOCTYPE html>
+<html lang="en">
 
-                    </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="row mt-5">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class=" card-body">
+                    <form action="{{ route('login') }}" method="post">
+                        @csrf
+                        <table class="table">
+                            <tr>
+                                <td>Email</td>
+                                <td>
+                                    <input name="email" placeholder="Email Address" id="input-username"
+                                class="form-control" type="text" autofocus="off" required />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Password</td>
+                                <td>
+                                    <input name="password" placeholder="Enter Password" id="input-username"
+                                class="form-control" type="password" autofocus="off" required />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="text-right mb-3">
+                                        <button type="submit" name="login" class="btn btn-info btn-block"><i class="fa fa-key">
+                                                <b>{{ __('LOGIN') }}</b></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                     
+                       
+                    </form>
                 </div>
             </div>
         </div>
-    </x-slot>
-</x-layouts.guest>
+    </div>
+</body>
+
+</html>
